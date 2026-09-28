@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ Master - Aprendizaje Riguroso</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- BARRA DE GAMIFICACIÓN -->
+  <header class="gamification-bar">
+    <div class="user-stat"><i class="fas fa-fire streak-icon"></i> <span id="streakCount">1</span> Racha</div>
+    <div class="user-stat"><i class="fas fa-bolt xp-icon"></i> <span id="xpCount">0</span> XP</div>
+    <div class="user-stat"><i class="fas fa-check-double badge-icon"></i> <span id="scoreTracker">0/20 Quiz</span></div>
+  </header>
+
+  <!-- VISTA PRINCIPAL: MAPA Y RUTA SECUENCIAL -->
+  <div id="mapView" class="view-container">
+    <div class="map-header">
+      <h1 id="sectionTitle">Capítulo 1: Introducción a C++</h1>
+      <p id="sectionSubtitle">Aprende paso a paso: Teoría -> Cuestionario (20/20) -> Desafío</p>
+    </div>
+
+    <div class="path-container" id="nodesPath">
+      <!-- Nodos de la ruta generados dinámicamente -->
+    </div>
+
+    <div class="floating-nav">
+      <button onclick="prevSection()" class="nav-btn"><i class="fas fa-arrow-left"></i></button>
+      <span id="sectionCounter">Sección 1 de 4</span>
+      <button onclick="nextSection()" class="nav-btn"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- VISTA DE LECCIÓN / APRENDIZAJE -->
+  <div id="lessonView" class="view-container hidden">
+    <nav class="top-tabs">
+      <button id="btn-tab-theory" class="tab-btn active" onclick="switchTab('theory')"><i class="fas fa-book-open"></i> 1. Teoría</button>
+      <button id="btn-tab-quiz" class="tab-btn disabled" id="tabQuizBtn" onclick="switchTab('quiz')"><i class="fas fa-list-check"></i> 2. Cuestionario (0/20)</button>
+      <button id="btn-tab-challenge" class="tab-btn disabled" id="tabChallengeBtn" onclick="switchTab('challenge')"><i class="fas fa-code"></i> 3. Desafío Práctico</button>
+      <button class="close-btn" onclick="closeLesson()">&times;</button>
+    </nav>
+
+    <main class="tab-content">
+      
+      <!-- FASE 1: CONOCIMIENTO / TEORÍA PROFUNDA -->
+      <section id="tab-theory" class="tab-pane">
+        <div class="theory-card">
+          <h2 id="theoryTitle">Título del Tema</h2>
+          <div id="theoryBody" class="theory-body"></div>
+          <button class="action-btn" onclick="finishTheoryAndGoToQuiz()">
+            Comprehendo el tema, ir al Cuestionario <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- FASE 2: CUESTIONARIO EVALUATIVO (20 PREGUNTAS) -->
+      <section id="tab-quiz" class="tab-pane hidden">
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <span id="quizQuestionNum">Pregunta 1 de 20</span>
+            <span id="quizScore">Aciertos: 0/20</span>
+          </div>
+
+          <div class="quiz-question" id="quizQuestionText">Texto de la pregunta...</div>
+          <div class="quiz-options" id="quizOptionsContainer"></div>
+
+          <!-- Cuadro de Retroalimentación Inmediata (Correcto / Incorrecto) -->
+          <div id="feedbackBox" class="feedback-box hidden">
+            <div id="feedbackTitle" class="feedback-title"></div>
+            <div id="feedbackBody" class="feedback-body"></div>
+            <button id="feedbackNextBtn" class="action-btn" onclick="nextQuizQuestion()">Siguiente Pregunta <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 3: DESAFÍO Y CONSOLA DE CÓDIGO -->
+      <section id="tab-challenge" class="tab-pane hidden">
+        <div class="challenge-header">
+          <h2 id="challengeTitle">Desafío de Código</h2>
+          <button class="jump-console-btn" onclick="scrollToConsole()">
+            <i class="fas fa-terminal"></i> Ir a la Consola
+          </button>
+        </div>
+
+        <div class="challenge-desc" id="challengeDescription"></div>
+
+        <div id="consoleArea" class="console-area">
+          <div class="editor-header">
+            <span><i class="fas fa-terminal"></i> CONSOLA DE C++</span>
+            <button class="reset-btn" onclick="resetCode()"><i class="fas fa-undo"></i> Reiniciar</button>
+          </div>
+          <textarea id="codeEditor" class="code-editor" spellcheck="false"></textarea>
+
+          <div class="editor-footer">
+            <div id="testResults" class="test-results-box">Escribe tu código y presiona Ejecutar.</div>
+            <button class="run-btn" onclick="runCode()"><i class="fas fa-play"></i> Ejecutar / Validar</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal de Éxito al desbloquear el subtema -->
+    <div id="successModal" class="modal hidden">
+      <div class="modal-content">
+        <i class="fas fa-trophy trophy-icon"></i>
+        <h2>¡Subtema Dominado!</h2>
+        <p>Has completado la Teoría, el Cuestionario (20/20) y el Desafío de Código.</p>
+        <button class="continue-btn" onclick="completeTopicAndNext()">Avanzar al Siguiente Subtema</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
